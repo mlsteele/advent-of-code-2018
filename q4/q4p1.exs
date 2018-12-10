@@ -29,6 +29,13 @@ defmodule X do
     end
   end
 
+  def x do
+    0..59 |> Enum.reduce(%{result: %{}, awake: true, q: events}, fn minute, x ->
+      awake = if (minute == hd(q).minute), do: events.awakey, else: x.awake
+      x
+    end))
+  end
+
   def main() do
     events = "./input.txt" |> X.file_lines
     |> Enum.map(&X.parse_line/1)
